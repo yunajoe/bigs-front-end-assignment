@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 기능 요구 사항 정리
 
-## Getting Started
+1. 회원가입 기능
 
-First, run the development server:
+- username, name, password, confirm password를 받는다.
+- username은 이메일 형식으로 받는다 (ex: yunajoe@gmail.com)
+- name은 사용자 닉네임으로, 1~10글자 사이로만 받는다. 공백은 허용되지 않는다.
+- password는 8자 이상, 숫자, 영문자, 특수문자(!%\*#?&) 1개 이상의 조합만 허용이 된다.
 
-```bash
+2. 로그인 기능
+
+- username와 password를 받는다.
+
+3. 글 CRUD기능
+
+- 글 등록, 조회(페이지네이션), 수정, 삭제 기능
+- 로그인 이후에만 사용 가능하다.
+
+# 예외 처리
+
+1. 회원가입
+
+- username, name, password, confirm password 4개중 하나라도 값이 없는 경우.
+- password와 confirm password가 일치 하지 않는 경우
+- username은 이메일 형식이 아닌 경우. 이메일 형식은 사용자명(로컬 부분), '@' 기호, 그리고 도메인으로 구성 (ex: yunajoe@gmail.com)
+- username의 length가 1 ~ 10 외인 경우
+- username에 공백이 포함된 경우
+
+2. 로그인
+
+- username 혹은 password 둘 중에 하나라도 값이 없는 경우
+- username이 가입되어 있지 않은 경우
+- username에 맞지 않은 password인 경우
+
+# 사용 스택
+
+- Next.js (App router)
+- Zustand
+
+# 실행방법
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
