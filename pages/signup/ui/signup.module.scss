@@ -55,10 +55,26 @@
     border-radius: 8px;
     border: 1px solid $gray-300;
   }
+
   ::placeholder {
     font-size: $font-size-sm;
     color: $gray-300;
   }
+}
+
+.inputRelativeContainer {
+  position: relative;
+  width: 100%;
+  & input {
+    width: 100%;
+  }
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  right: 4%;
+  transform: translateY(-50%);
 }
 
 .button {

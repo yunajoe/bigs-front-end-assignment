@@ -2,8 +2,7 @@
 
 import { SignUpParams } from "@/shared/types/auth";
 import { checkUserNameValidation } from "@/shared/utils/auth-validation";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { faEyeSlash } from "@fortawesome/free-solid-svg-icons/faEyeSlash";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState } from "react";
@@ -14,12 +13,12 @@ function SignUpPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [isValidUserName, setIsValidUserName] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
   const handleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     const isValid = checkUserNameValidation(value);
-    // console.log("isValid ==>", isValid);
     setUserName(value);
   };
 
@@ -64,22 +63,41 @@ function SignUpPage() {
       </div>
       <div className={styles.inputContainer}>
         <label>비밀번호</label>
-        <FontAwesomeIcon icon={faEye} size="lg" color="#6b7280" />
-        <input
-          type="password"
-          placeholder="8자 이상, 숫자, 영문자, 특수문자(!%*#?&) 1개 이상의 조합"
-          onChange={handlePassword}
-        />
+        <div className={styles.inputRelativeContainer}>
+          <input
+            type={showPassword ? "" : "password"}
+            placeholder="8자 이상, 숫자, 영문자, 특수문자(!%*#?&) 1개 이상의 조합"
+            onChange={handlePassword}
+          />
+          <FontAwesomeIcon
+            onClick={() => {
+              setShowPassword(!showPassword);
+            }}
+            icon={showPassword ? faEye : faEyeSlash}
+            size="lg"
+            color="#6b7280"
+            className={styles.icon}
+          />
+        </div>
       </div>
       <div className={styles.inputContainer}>
         <label>비밀번호 확인</label>
-        <FontAwesomeIcon icon={faEyeSlash} size="lg" color="#6b7280" />
-
-        <input
-          type="password"
-          placeholder="비밀번호를 한번 더 입력해 주세요"
-          onChange={handleConfirmPassword}
-        />
+        <div className={styles.inputRelativeContainer}>
+          <input
+            type={showPasswordConfirm ? "" : "password"}
+            placeholder="비밀번호를 한번 더 입력해 주세요"
+            onChange={handleConfirmPassword}
+          />
+          <FontAwesomeIcon
+            onClick={() => {
+              setShowPasswordConfirm(!showPasswordConfirm);
+            }}
+            icon={showPasswordConfirm ? faEye : faEyeSlash}
+            size="lg"
+            color="#6b7280"
+            className={styles.icon}
+          />
+        </div>
       </div>
 
       <button
