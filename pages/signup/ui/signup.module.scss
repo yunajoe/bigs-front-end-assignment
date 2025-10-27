@@ -1,4 +1,4 @@
-@use "@/shared/styles/mixin" as *; // 또는 경로에 맞게 수정
+@use "@/shared/styles/mixin" as *;
 @use "@/shared/styles/variables" as *;
 
 .formContainer {
@@ -17,7 +17,6 @@
   }
 }
 
-// 로고
 .logoContainer {
   width: 100%;
   display: flex;
@@ -38,7 +37,6 @@
   font-weight: $font-weight-bold;
 }
 
-//  인풋
 .inputContainer {
   width: 100%;
   display: flex;
@@ -63,18 +61,23 @@
   }
 }
 
-// 버튼
 .button {
   width: 100%;
   cursor: pointer;
   border: none;
   outline: none;
   color: $white;
+  background-color: $gray-200;
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
   padding: 16px 8px;
   border-radius: 16px;
   margin-bottom: 20px;
+}
+
+.button.active {
+  background-color: $black;
+  color: $white;
 }
 
 .redirect {
