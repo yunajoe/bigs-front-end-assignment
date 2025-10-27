@@ -1,5 +1,7 @@
+import LoginPage from "@/pages/login/ui/page";
+
 function Page() {
-  return <div>로그인페이지</div>;
+  return <LoginPage></LoginPage>;
 }
 
 export default Page;

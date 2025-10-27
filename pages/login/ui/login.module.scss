@@ -80,6 +80,7 @@
 .redirect {
   display: flex;
   column-gap: 10px;
+
   & a {
     color: $gray-500;
   }
