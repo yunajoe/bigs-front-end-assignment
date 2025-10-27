@@ -12,6 +12,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState } from "react";
+import { signUp } from "../api";
 import styles from "./signup.module.scss";
 function SignUpPage() {
   const [username, setUserName] = useState("");
@@ -38,7 +39,7 @@ function SignUpPage() {
     const value = e.target.value.trim();
     setName(value);
 
-    const validName = checkNameValidation(name);
+    const validName = checkNameValidation(value);
     setValidName(validName);
   };
 
@@ -64,7 +65,7 @@ function SignUpPage() {
   const handleSignUp = async (data: SignUpParams) => {
     console.log("회원가입 버튼을 누릅니다.", data);
 
-    // await signUp(data);
+    const result = await signUp(data);
   };
 
   const isActive =
@@ -80,13 +81,15 @@ function SignUpPage() {
         <label>이메일</label>
         <input placeholder="이메일을 입력해주세요" onChange={handleUserName} />
         {!validUserName && username.length > 0 && (
-          <p>{signUpErrorMessage.username}</p>
+          <p className={styles.error}>{signUpErrorMessage.username}</p>
         )}
       </div>
       <div className={styles.inputContainer}>
         <label>닉네임</label>
         <input placeholder="닉네임을 입력해주세요" onChange={handleName} />
-        {!validName && name.length > 0 && <p>{signUpErrorMessage.name}</p>}
+        {!validName && name.length > 0 && (
+          <p className={styles.error}>{signUpErrorMessage.name}</p>
+        )}
       </div>
       <div className={styles.inputContainer}>
         <label>비밀번호</label>
@@ -107,7 +110,7 @@ function SignUpPage() {
           />
         </div>
         {!validPassword && password.length > 0 && (
-          <p>{signUpErrorMessage.password}</p>
+          <p className={styles.error}>{signUpErrorMessage.password}</p>
         )}
       </div>
       <div className={styles.inputContainer}>
@@ -129,7 +132,7 @@ function SignUpPage() {
           />
         </div>
         {!validConfirmPassword && confirmPassword.length > 0 && (
-          <p>{signUpErrorMessage.confirmPassword}</p>
+          <p className={styles.error}>{signUpErrorMessage.confirmPassword}</p>
         )}
       </div>
 
