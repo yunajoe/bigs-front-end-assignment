@@ -1,7 +1,11 @@
 "use client";
 
 import { SignUpParams } from "@/shared/types/auth";
-import { checkUserNameValidation } from "@/shared/utils/auth-validation";
+import {
+  checkConfirmationPasswordValidation,
+  checkPasswordValidation,
+  checkUserNameValidation,
+} from "@/shared/utils/auth-validation";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -16,9 +20,10 @@ function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
+  const [validUserName, setValidUserName] = useState(false);
+
   const handleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
-    const isValid = checkUserNameValidation(value);
     setUserName(value);
   };
 
@@ -38,7 +43,32 @@ function SignUpPage() {
   };
 
   const handleSignUp = async (data: SignUpParams) => {
-    console.log("Data", data);
+    console.log("회원가입 버튼을 누릅니다.", data);
+    const { username, name, password, confirmPassword } = data;
+    const validUserName = checkUserNameValidation(username);
+    const validName = checkUserNameValidation(name);
+    const validPassword = checkPasswordValidation(password);
+    const validConfirmPassword = checkConfirmationPasswordValidation(
+      password,
+      confirmPassword
+    );
+
+    console.log(
+      "validUserName ===>",
+      validUserName,
+      "username ===>",
+      validName,
+      "password ===>>",
+      validPassword,
+      "test",
+      validConfirmPassword
+    );
+    setValidUserName(validUserName);
+
+    // 이메일 유효성 검증
+    // 닉네임 유효성 검증
+    // 비밀번호 유효성 검증
+    // 비밀번호 확인 유효성 검증
     // await signUp(data);
   };
 
@@ -56,6 +86,7 @@ function SignUpPage() {
       <div className={styles.inputContainer}>
         <label>이메일</label>
         <input placeholder="이메일을 입력해주세요" onChange={handleUserName} />
+        {!validUserName && <p>이메일에러</p>}
       </div>
       <div className={styles.inputContainer}>
         <label>닉네임</label>
