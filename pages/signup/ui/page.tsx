@@ -1,8 +1,10 @@
 "use client";
 
+import { signUpErrorMessage } from "@/shared/const/auth-validation";
 import { SignUpParams } from "@/shared/types/auth";
 import {
   checkConfirmationPasswordValidation,
+  checkNameValidation,
   checkPasswordValidation,
   checkUserNameValidation,
 } from "@/shared/utils/auth-validation";
@@ -21,76 +23,70 @@ function SignUpPage() {
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
   const [validUserName, setValidUserName] = useState(false);
+  const [validName, setValidName] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
+  const [validConfirmPassword, setValidConfirmPassword] = useState(false);
 
   const handleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     setUserName(value);
+    const validUserName = checkUserNameValidation(value);
+    setValidUserName(validUserName);
   };
 
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     setName(value);
+
+    const validName = checkNameValidation(name);
+    setValidName(validName);
   };
 
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     setPassword(value);
+
+    const validPassword = checkPasswordValidation(value);
+    setValidPassword(validPassword);
   };
 
   const handleConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     setConfirmPassword(value);
+
+    const validConfirmPassword = checkConfirmationPasswordValidation(
+      password,
+      value
+    );
+    setValidConfirmPassword(validConfirmPassword);
   };
 
   const handleSignUp = async (data: SignUpParams) => {
     console.log("회원가입 버튼을 누릅니다.", data);
-    const { username, name, password, confirmPassword } = data;
-    const validUserName = checkUserNameValidation(username);
-    const validName = checkUserNameValidation(name);
-    const validPassword = checkPasswordValidation(password);
-    const validConfirmPassword = checkConfirmationPasswordValidation(
-      password,
-      confirmPassword
-    );
 
-    console.log(
-      "validUserName ===>",
-      validUserName,
-      "username ===>",
-      validName,
-      "password ===>>",
-      validPassword,
-      "test",
-      validConfirmPassword
-    );
-    setValidUserName(validUserName);
-
-    // 이메일 유효성 검증
-    // 닉네임 유효성 검증
-    // 비밀번호 유효성 검증
-    // 비밀번호 확인 유효성 검증
     // await signUp(data);
   };
 
   const isActive =
-    username.length > 0 &&
-    name.length > 0 &&
-    password.length > 0 &&
-    confirmPassword.length > 0;
+    validUserName && validName && validPassword && validConfirmPassword;
+
   return (
     <div className={styles.formContainer}>
       <div className={styles.logoContainer}>
-        <div className={styles.logo}>로고 이미지</div>
+        <div className={styles.logo}></div>
         <span className={styles.logoTitle}>BIGS PAYMENTS</span>
       </div>
       <div className={styles.inputContainer}>
         <label>이메일</label>
         <input placeholder="이메일을 입력해주세요" onChange={handleUserName} />
-        {!validUserName && <p>이메일에러</p>}
+        {!validUserName && username.length > 0 && (
+          <p>{signUpErrorMessage.username}</p>
+        )}
       </div>
       <div className={styles.inputContainer}>
         <label>닉네임</label>
         <input placeholder="닉네임을 입력해주세요" onChange={handleName} />
+        {!validName && name.length > 0 && <p>{signUpErrorMessage.name}</p>}
       </div>
       <div className={styles.inputContainer}>
         <label>비밀번호</label>
@@ -110,6 +106,9 @@ function SignUpPage() {
             className={styles.icon}
           />
         </div>
+        {!validPassword && password.length > 0 && (
+          <p>{signUpErrorMessage.password}</p>
+        )}
       </div>
       <div className={styles.inputContainer}>
         <label>비밀번호 확인</label>
@@ -129,19 +128,22 @@ function SignUpPage() {
             className={styles.icon}
           />
         </div>
+        {!validConfirmPassword && confirmPassword.length > 0 && (
+          <p>{signUpErrorMessage.confirmPassword}</p>
+        )}
       </div>
 
       <button
         disabled={!isActive}
         className={`${styles.button} ${isActive ? styles.active : ""}`}
-        onClick={() =>
+        onClick={() => {
           handleSignUp({
             username,
             name,
             password,
             confirmPassword,
-          })
-        }
+          });
+        }}
       >
         회원가입 하기
       </button>
