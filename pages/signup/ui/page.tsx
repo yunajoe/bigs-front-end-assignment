@@ -2,6 +2,9 @@
 
 import { SignUpParams } from "@/shared/types/auth";
 import { checkUserNameValidation } from "@/shared/utils/auth-validation";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEyeSlash } from "@fortawesome/free-solid-svg-icons/faEyeSlash";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState } from "react";
 import styles from "./signup.module.scss";
@@ -61,16 +64,19 @@ function SignUpPage() {
       </div>
       <div className={styles.inputContainer}>
         <label>비밀번호</label>
+        <FontAwesomeIcon icon={faEye} size="lg" color="#6b7280" />
         <input
-          // type="password"
+          type="password"
           placeholder="8자 이상, 숫자, 영문자, 특수문자(!%*#?&) 1개 이상의 조합"
           onChange={handlePassword}
         />
       </div>
       <div className={styles.inputContainer}>
         <label>비밀번호 확인</label>
+        <FontAwesomeIcon icon={faEyeSlash} size="lg" color="#6b7280" />
+
         <input
-          // type="password"
+          type="password"
           placeholder="비밀번호를 한번 더 입력해 주세요"
           onChange={handleConfirmPassword}
         />
