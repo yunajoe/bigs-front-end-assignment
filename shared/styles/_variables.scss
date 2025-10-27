@@ -22,12 +22,69 @@
 
   --blue-300: #64b5f6;
   --blue-500: #2196f3;
+
+  // 폰트 크기 (기준값)
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+
+  // 폰트 굵기
+  /* font-weight scale */
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
 }
-// font
 $font-stack: Helvetica, sans-serif;
 
-// color
-$primary-color: var(--blue-500);
+// font - size
+$font-stack: var(--font-family-base);
+$font-size-xs: var(--font-size-xs);
+$font-size-sm: var(--font-size-sm);
+$font-size-md: var(--font-size-md);
+$font-size-lg: var(--font-size-lg);
+$font-size-xl: var(--font-size-xl);
+$font-size-2xl: var(--font-size-2xl);
+
+/* Font weights */
+$font-weight-thin: var(--font-weight-thin);
+$font-weight-extralight: var(--font-weight-extralight);
+$font-weight-light: var(--font-weight-light);
+$font-weight-regular: var(--font-weight-regular);
+$font-weight-medium: var(--font-weight-medium);
+$font-weight-semibold: var(--font-weight-semibold);
+$font-weight-bold: var(--font-weight-bold);
+$font-weight-extrabold: var(--font-weight-extrabold);
+$font-weight-black: var(--font-weight-black);
+
+/* Color */
+$black: var(--black);
+$white: var(--white);
+
+$gray-900: var(--gray-900);
+$gray-800: var(--gray-800);
+$gray-700: var(--gray-700);
+$gray-600: var(--gray-600);
+$gray-500: var(--gray-500);
+$gray-400: var(--gray-400);
+$gray-300: var(--gray-300);
+$gray-200: var(--gray-200);
+$gray-100: var(--gray-100);
+
+$red-400: var(--red-400);
+$green-500: var(--green-500);
+$orange-500: var(--orange-500);
+$yellow-500: var(--yellow-500);
+$blue-300: var(--blue-300);
+$blue-500: var(--blue-500);
 
 // responsive size
 $break-point-mobile: 375px;

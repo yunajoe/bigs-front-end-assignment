@@ -1,8 +1,12 @@
+@use "./reset";
 @use "./mixin" as *;
 @use "./variables" as *;
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font: 100% $font-stack;
-  color: $primary-color;
-  background-color: $primary-color;
+  background-color: $white;
 }
