@@ -47,8 +47,16 @@ function SignUpPage() {
     const value = e.target.value.trim();
     setPassword(value);
 
+    // password
     const validPassword = checkPasswordValidation(value);
     setValidPassword(validPassword);
+
+    // confirmPassword
+    const validConfirmPassword = checkConfirmationPasswordValidation(
+      value,
+      confirmPassword
+    );
+    setValidConfirmPassword(validConfirmPassword);
   };
 
   const handleConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
