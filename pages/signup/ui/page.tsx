@@ -12,9 +12,11 @@ import { customError } from "@/shared/utils/axios-validation";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signUp } from "../api";
 import styles from "./signup.module.scss";
+
 function SignUpPage() {
   const [username, setUserName] = useState("");
   const [name, setName] = useState("");
@@ -28,6 +30,8 @@ function SignUpPage() {
   const [validName, setValidName] = useState(false);
   const [validPassword, setValidPassword] = useState(false);
   const [validConfirmPassword, setValidConfirmPassword] = useState(false);
+
+  const router = useRouter();
 
   const handleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
@@ -73,8 +77,13 @@ function SignUpPage() {
 
   const handleSignUp = async (data: SignUpParams) => {
     try {
-      const result = await signUp(data);
-      console.log("result", result);
+      const status = await signUp(data);
+      if (status === 200) {
+        alert("회원가입에 성공하였습니다.");
+        router.push("/");
+      }
+
+      // ㅎ
     } catch (error: unknown) {
       if (error instanceof Error) {
         const errorResult = customError(error.type, error);
@@ -89,7 +98,6 @@ function SignUpPage() {
   return (
     <div className={styles.formContainer}>
       <div className={styles.logoContainer}>
-        <div className={styles.logo}></div>
         <span className={styles.logoTitle}>BIGS PAYMENTS</span>
       </div>
       <div className={styles.inputContainer}>

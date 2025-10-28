@@ -4,9 +4,11 @@ import { SignUpParams } from "@/shared/types/auth";
 
 export const signUp = async (data: SignUpParams) => {
   try {
-    const response = await instance.post(signUpUrl, data);
-    return response;
+    const { status } = await instance.post(signUpUrl, data);
+    return status;
   } catch (error) {
     throw error;
   }
 };
+
+export const signIn = async (data) => {};

@@ -2,17 +2,19 @@
 @use "@/shared/styles/variables" as *;
 
 .formContainer {
-  max-width: 640px;
+  margin: 100px auto;
+  min-width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
   @include tablet {
-    background-color: lightgreen;
+    max-width: 640px;
   }
 
   @include desktop {
+    max-width: 640px;
     background-color: lightcoral;
   }
 }
@@ -24,12 +26,7 @@
   align-items: center;
   justify-content: center;
   row-gap: 20px;
-}
-
-.logo {
-  width: 100px;
-  height: 100px;
-  background: red;
+  margin-bottom: 20px;
 }
 
 .logoTitle {
