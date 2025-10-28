@@ -41,12 +41,15 @@ instance.interceptors.response.use(
       return Promise.reject({
         type: "NO_RESPONSE",
         message: AXIOS_ERROR_MESSAGE.NO_RESPONSE,
+        status: 500,
       });
     }
 
+    // 알수없는 오류
     return Promise.reject({
       type: "UNKNOWN_ERROR",
       message: AXIOS_ERROR_MESSAGE.UNKNOWN_ERROR,
+      status: 500,
     });
   }
 );

@@ -8,6 +8,7 @@ import {
   checkPasswordValidation,
   checkUserNameValidation,
 } from "@/shared/utils/auth-validation";
+import { customError } from "@/shared/utils/axios-validation";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -71,9 +72,15 @@ function SignUpPage() {
   };
 
   const handleSignUp = async (data: SignUpParams) => {
-    console.log("회원가입 버튼을 누릅니다.", data);
-
-    const result = await signUp(data);
+    try {
+      const result = await signUp(data);
+      console.log("result", result);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        const errorResult = customError(error.type, error);
+        alert(errorResult?.message);
+      }
+    }
   };
 
   const isActive =
