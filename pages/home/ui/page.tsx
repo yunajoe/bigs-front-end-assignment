@@ -1,7 +1,8 @@
 import Link from "next/link";
 import styles from "./home.module.scss";
 function HomePage() {
-  const isLoggedIn = true;
+  // 로그인이 됬느지 확인해자
+
   return (
     <div>
       <nav className={styles.nav}>

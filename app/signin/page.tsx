@@ -1,7 +1,7 @@
 import LoginPage from "@/pages/signin/ui/page";
 
 function Page() {
-  return <LoginPage></LoginPage>;
+  return <LoginPage />;
 }
 
 export default Page;
