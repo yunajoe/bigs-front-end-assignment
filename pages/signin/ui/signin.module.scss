@@ -2,22 +2,22 @@
 @use "@/shared/styles/variables" as *;
 
 .formContainer {
-  max-width: 640px;
+  margin: 100px auto;
+  min-width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
   @include tablet {
-    background-color: lightgreen;
+    max-width: 640px;
   }
 
   @include desktop {
-    background-color: lightcoral;
+    max-width: 640px;
   }
 }
 
-// 로고
 .logoContainer {
   width: 100%;
   display: flex;
@@ -25,12 +25,7 @@
   align-items: center;
   justify-content: center;
   row-gap: 20px;
-}
-
-.logo {
-  width: 100px;
-  height: 100px;
-  background: red;
+  margin-bottom: 20px;
 }
 
 .logoTitle {
@@ -38,7 +33,6 @@
   font-weight: $font-weight-bold;
 }
 
-//  인풋
 .inputContainer {
   width: 100%;
   display: flex;
@@ -63,25 +57,47 @@
   }
 }
 
-// 버튼
+.inputRelativeContainer {
+  position: relative;
+  width: 100%;
+  & input {
+    width: 100%;
+  }
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  right: 4%;
+  transform: translateY(-50%);
+}
+
 .button {
   width: 100%;
   cursor: pointer;
   border: none;
   outline: none;
   color: $white;
+  background-color: $gray-200;
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
   padding: 16px 8px;
   border-radius: 16px;
   margin-bottom: 20px;
 }
+.button.active {
+  background-color: $black;
+  color: $white;
+}
 
 .redirect {
   display: flex;
   column-gap: 10px;
-
   & a {
     color: $gray-500;
   }
+}
+
+.error {
+  color: $red-400;
 }

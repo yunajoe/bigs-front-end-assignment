@@ -10,5 +10,3 @@ export const signUp = async (data: SignUpParams) => {
     throw error;
   }
 };
-
-export const signIn = async (data) => {};

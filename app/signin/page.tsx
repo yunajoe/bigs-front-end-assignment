@@ -1,4 +1,4 @@
-import LoginPage from "@/pages/login/ui/page";
+import LoginPage from "@/pages/signin/ui/page";
 
 function Page() {
   return <LoginPage></LoginPage>;
