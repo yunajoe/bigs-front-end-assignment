@@ -1,6 +1,6 @@
 "use client";
 
-import { signUpErrorMessage } from "@/shared/const/auth-validation";
+import { SIGN_UP_ERROR_MESSAGE } from "@/shared/const/auth-validation";
 import { SignUpParams } from "@/shared/types/auth";
 import {
   checkConfirmationPasswordValidation,
@@ -89,14 +89,14 @@ function SignUpPage() {
         <label>이메일</label>
         <input placeholder="이메일을 입력해주세요" onChange={handleUserName} />
         {!validUserName && username.length > 0 && (
-          <p className={styles.error}>{signUpErrorMessage.username}</p>
+          <p className={styles.error}>{SIGN_UP_ERROR_MESSAGE.username}</p>
         )}
       </div>
       <div className={styles.inputContainer}>
         <label>닉네임</label>
         <input placeholder="닉네임을 입력해주세요" onChange={handleName} />
         {!validName && name.length > 0 && (
-          <p className={styles.error}>{signUpErrorMessage.name}</p>
+          <p className={styles.error}>{SIGN_UP_ERROR_MESSAGE.name}</p>
         )}
       </div>
       <div className={styles.inputContainer}>
@@ -118,7 +118,7 @@ function SignUpPage() {
           />
         </div>
         {!validPassword && password.length > 0 && (
-          <p className={styles.error}>{signUpErrorMessage.password}</p>
+          <p className={styles.error}>{SIGN_UP_ERROR_MESSAGE.password}</p>
         )}
       </div>
       <div className={styles.inputContainer}>
@@ -140,7 +140,9 @@ function SignUpPage() {
           />
         </div>
         {!validConfirmPassword && confirmPassword.length > 0 && (
-          <p className={styles.error}>{signUpErrorMessage.confirmPassword}</p>
+          <p className={styles.error}>
+            {SIGN_UP_ERROR_MESSAGE.confirmPassword}
+          </p>
         )}
       </div>
 
