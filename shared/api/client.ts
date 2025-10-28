@@ -3,15 +3,13 @@ import { AXIOS_ERROR_MESSAGE } from "../const/axios-validation";
 
 export const instance = axios.create({
   baseURL: "https://front-mission.bigs.or.kr/",
-  // validateStatus: function (status) {
-  //   return status < 500;
-  // },
 });
 
 // 요청 인터셉터 추가하기
 instance.interceptors.request.use(
   function (config) {
     // 요청이 전달되기 전에 작업 수행
+
     return config;
   },
   function (error) {
@@ -23,7 +21,6 @@ instance.interceptors.request.use(
 // 응답 인터셉터 추가하기
 instance.interceptors.response.use(
   function (response) {
-    // 2xx 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
     return response;
   },
   function (error) {

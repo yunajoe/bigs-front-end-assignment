@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const authInstance = axios.create({
+export const authInstance = axios.create({
   baseURL: "https://front-mission.bigs.or.kr/",
   timeout: 1000,
 });
@@ -9,6 +9,10 @@ const authInstance = axios.create({
 authInstance.interceptors.request.use(
   function (config) {
     // 요청이 전달되기 전에 작업 수행
+    // headers의 AUthroziaion dㅔ Bearer TOken에 accessToken이 있는지 확인하기
+    // accessToken이 있으면은  headers에 acccessToken를 넎는다.
+
+    // accessToken이 없으면은???
     return config;
   },
   function (error) {
