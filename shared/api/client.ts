@@ -8,8 +8,6 @@ export const instance = axios.create({
 // 요청 인터셉터 추가하기
 instance.interceptors.request.use(
   function (config) {
-    // 요청이 전달되기 전에 작업 수행
-
     return config;
   },
   function (error) {
@@ -25,7 +23,7 @@ instance.interceptors.response.use(
   },
   function (error) {
     if (error.response) {
-      // 요청이 전송되었고, 서버는 2xx 외의 상태 코드(4xx, 5xx) 응답했습니다.
+      // 요청이 전송되었고, 서버는 2xx 외의 상태 코드(4xx, 5xx) 응답
       const { status, data } = error.response;
       return Promise.reject({
         type: "RESPONSE_ERROR",
@@ -34,7 +32,7 @@ instance.interceptors.response.use(
         data,
       });
     } else if (error.request && !error.response) {
-      // 요청이 전송되었지만, 응답이 수신되지 않았습니다.
+      // 요청이 전송되었지만, 응답이 수신 안되었을 때
       return Promise.reject({
         type: "NO_RESPONSE",
         message: AXIOS_ERROR_MESSAGE.NO_RESPONSE,

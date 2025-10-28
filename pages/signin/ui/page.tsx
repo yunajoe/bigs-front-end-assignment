@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuthStore } from "@/feature/auth/auth-store";
 import { AUTH_ERROR_MESSAGE } from "@/shared/const/auth-validation";
 import { SignInParams } from "@/shared/types/auth";
 import {
@@ -25,6 +26,7 @@ function SignInPage() {
   const [validPassword, setValidPassword] = useState(false);
 
   const router = useRouter();
+  const { setTokens } = useAuthStore();
 
   const handleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
@@ -43,11 +45,12 @@ function SignInPage() {
 
   const handleSignIn = async (data: SignInParams) => {
     try {
-      const status = await signIn(data);
+      const { status, accessToken, refreshToken } = await signIn(data);
       if (status === 200) {
+        setTokens(accessToken, refreshToken);
         alert("로그인에 성공하였습니다.");
-        router.push("/");
       }
+      router.push("/signin");
     } catch (error) {
       const errorResult = customError(error.type, error);
       alert(errorResult?.message);

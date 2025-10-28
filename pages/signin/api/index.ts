@@ -4,8 +4,15 @@ import { SignInParams } from "@/shared/types/auth";
 
 export const signIn = async (data: SignInParams) => {
   try {
-    const { status } = await instance.post(signInUrl, data);
-    return status;
+    const {
+      status,
+      data: { accessToken, refreshToken },
+    } = await instance.post(signInUrl, data);
+    return {
+      status,
+      accessToken,
+      refreshToken,
+    };
   } catch (error) {
     throw error;
   }
