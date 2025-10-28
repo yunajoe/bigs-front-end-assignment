@@ -1,13 +1,49 @@
 "use client";
 
+import { AUTH_ERROR_MESSAGE } from "@/shared/const/auth-validation";
+import { SignInParams } from "@/shared/types/auth";
+import {
+  checkPasswordValidation,
+  checkUserNameValidation,
+} from "@/shared/utils/auth-validation";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState } from "react";
+import { signIn } from "../api";
 import styles from "./signin.module.scss";
 
 function SignInPage() {
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
   const [showPassword, setShowPassword] = useState(false);
+
+  const [validUserName, setValidUserName] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
+
+  const handleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim();
+    setUserName(value);
+    const validUserName = checkUserNameValidation(value);
+    setValidUserName(validUserName);
+  };
+
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim();
+    setPassword(value);
+
+    const validPassword = checkPasswordValidation(value);
+    setValidPassword(validPassword);
+  };
+
+  const handleSignIn = async (data: SignInParams) => {
+    try {
+      const status = await signIn(data);
+    } catch (error) {}
+  };
+  const isActive = validUserName && validPassword;
+  console.log("isActivae", isActive);
 
   return (
     <div className={styles.formContainer}>
@@ -16,12 +52,19 @@ function SignInPage() {
       </div>
       <div className={styles.inputContainer}>
         <label>이메일</label>
-        <input placeholder="이메일을 입력해주세요" />
+        <input placeholder="이메일을 입력해주세요" onChange={handleUserName} />
+        {!validUserName && username.length > 0 && (
+          <p className={styles.error}>{AUTH_ERROR_MESSAGE.username}</p>
+        )}
       </div>
       <div className={styles.inputContainer}>
         <label>비밀번호</label>
         <div className={styles.inputRelativeContainer}>
-          <input placeholder="8자 이상, 숫자, 영문자, 특수문자(!%*#?&) 1개 이상의 조합" />
+          <input
+            type={showPassword ? "" : "password"}
+            placeholder="8자 이상, 숫자, 영문자, 특수문자(!%*#?&) 1개 이상의 조합"
+            onChange={handlePassword}
+          />
           <FontAwesomeIcon
             onClick={() => {
               setShowPassword(!showPassword);
@@ -32,9 +75,23 @@ function SignInPage() {
             className={styles.icon}
           />
         </div>
+        {!validPassword && password.length > 0 && (
+          <p className={styles.error}>{AUTH_ERROR_MESSAGE.password}</p>
+        )}
       </div>
 
-      <button className={styles.button}>로그인 하기</button>
+      <button
+        disabled={!isActive}
+        className={`${styles.button} ${isActive ? styles.active : ""}`}
+        onClick={() => {
+          handleSignIn({
+            username,
+            password,
+          });
+        }}
+      >
+        로그인 하기
+      </button>
       <div className={styles.redirect}>
         <span>회원이 아니신가요?</span>
         <Link href="/signup">회원가입하기</Link>
