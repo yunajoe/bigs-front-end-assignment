@@ -27,7 +27,7 @@ function SignInPage() {
   const [validPassword, setValidPassword] = useState(false);
 
   const router = useRouter();
-  const { setTokens } = useAuthStore();
+  // const { setTokens } = useAuthStore();
 
   const handleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
@@ -48,10 +48,12 @@ function SignInPage() {
     try {
       const { status, accessToken, refreshToken } = await signIn(data);
       if (status === 200) {
+        const { setTokens, setUserName } = useAuthStore.getState();
+        setUserName(data.username);
         setTokens(accessToken, refreshToken);
         alert("로그인에 성공하였습니다.");
       }
-      router.push("/signin");
+      router.push("/");
     } catch (error: any) {
       const errorResult = customError(error.type, error);
       alert(errorResult?.message);

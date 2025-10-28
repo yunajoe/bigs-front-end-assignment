@@ -7,7 +7,7 @@ export const authInstance = axios.create({
   timeout: 1000,
 });
 
-export const newIssueAccessToken = async (refreshToken: string) => {
+const newIssueAccessToken = async (refreshToken: string) => {
   try {
     const response = await axios.post(refreshUrl, refreshToken);
     return response;
@@ -23,7 +23,6 @@ authInstance.interceptors.request.use(
     // headers의 AUthroziaion dㅔ Bearer TOken에 accessToken이 있는지 확인하기
     // accessToken이 있으면은  headers에 acccessToken를 넎는다.
     // accessToken이 없으면은??? 로그인 페이졸 보내자
-
     const { accessToken } = useAuthStore.getState();
     if (!accessToken) {
       window.location.href = "/signin";
@@ -41,12 +40,9 @@ authInstance.interceptors.response.use(
   function (response) {
     return response;
   },
-  //  dashboard api와 같은 인증이 필요한 api를 콜하였을 때 에러가 난 경우
-  // accessToken이 문제인 경우이다.
+
   async function (error) {
     // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
-    // 응답 오류가 있는 작업 수행
-    console.log("error", error);
     const originalConfig = error.config;
     const { refreshToken, setTokens, clearTokens } = useAuthStore.getState();
     if (error.response?.status >= 400 && refreshToken) {
