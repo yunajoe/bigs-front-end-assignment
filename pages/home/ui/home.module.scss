@@ -158,9 +158,11 @@
     padding: 4px;
     min-width: 100px;
     @include tablet {
+      margin-left: 10px;
       min-width: 140px;
     }
     @include desktop {
+      margin-left: 10px;
       min-width: 160px;
     }
   }

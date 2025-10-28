@@ -1,27 +1,29 @@
 "use client";
 import { useAuthStore } from "@/feature/auth/auth-store";
+import { useBoardStore } from "@/feature/board/board-store";
+import WritePost from "@/feature/components/form/write-post";
+import Modal from "@/feature/components/modal";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./home.module.scss";
 function HomePage() {
   const accessToken = useAuthStore((state) => state.accessToken);
   const username = useAuthStore((state) => state.username);
+  const isWriteModalOpen = useBoardStore((state) => state.isWriteModalOpen);
+  const { openWriteModal, closeWriteModal } = useBoardStore.getState();
+  const { clearTokens, clearUserName } = useAuthStore.getState();
 
-  console.log("accessToken", accessToken);
   const router = useRouter();
 
   const handleSignOut = () => {
-    const { clearTokens, clearUserName } = useAuthStore.getState();
     clearTokens();
     clearUserName();
   };
 
-  //   {
-  //   "NOTICE": "공지",
-  //   "FREE": "자유",
-  //   "QNA": "Q&A",
-  //   "ETC": "기타"
-  // }
+  const handleWritePost = () => {
+    openWriteModal();
+  };
+
   return (
     <div>
       {!accessToken ? (
@@ -69,7 +71,7 @@ function HomePage() {
           <div className={styles.boardContainer}>
             <nav className={styles.boardNavigation}>
               <h3>게시판</h3>
-              <button>글쓰기</button>
+              <button onClick={handleWritePost}>글쓰기</button>
             </nav>
             <div className={styles.boardCategories}>
               <div className={styles.categoryButtonContainer}>
@@ -86,6 +88,9 @@ function HomePage() {
           </div>
         </div>
       )}
+      <Modal isModalOpen={isWriteModalOpen} closeModal={closeWriteModal}>
+        <WritePost />
+      </Modal>
     </div>
   );
 }
