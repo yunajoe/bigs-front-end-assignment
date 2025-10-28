@@ -6,9 +6,11 @@ import {
   checkPasswordValidation,
   checkUserNameValidation,
 } from "@/shared/utils/auth-validation";
+import { customError } from "@/shared/utils/axios-validation";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signIn } from "../api";
 import styles from "./signin.module.scss";
@@ -21,6 +23,8 @@ function SignInPage() {
 
   const [validUserName, setValidUserName] = useState(false);
   const [validPassword, setValidPassword] = useState(false);
+
+  const router = useRouter();
 
   const handleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
@@ -40,10 +44,16 @@ function SignInPage() {
   const handleSignIn = async (data: SignInParams) => {
     try {
       const status = await signIn(data);
-    } catch (error) {}
+      if (status === 200) {
+        alert("로그인에 성공하였습니다.");
+        router.push("/");
+      }
+    } catch (error) {
+      const errorResult = customError(error.type, error);
+      alert(errorResult?.message);
+    }
   };
   const isActive = validUserName && validPassword;
-  console.log("isActivae", isActive);
 
   return (
     <div className={styles.formContainer}>

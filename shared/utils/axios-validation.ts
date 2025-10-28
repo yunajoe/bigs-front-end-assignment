@@ -10,7 +10,7 @@ export const customError = (type: string, error: any) => {
       }
       return {
         status: error.status,
-        message: error.data || error.message,
+        message: error.data.message || error.message,
       };
     }
     case "NO_RESPONSE": {

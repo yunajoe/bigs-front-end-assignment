@@ -82,11 +82,9 @@ function SignUpPage() {
         alert("회원가입에 성공하였습니다.");
         router.push("/");
       }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        const errorResult = customError(error.type, error);
-        alert(errorResult?.message);
-      }
+    } catch (error) {
+      const errorResult = customError(error.type, error);
+      alert(errorResult?.message);
     }
   };
 
