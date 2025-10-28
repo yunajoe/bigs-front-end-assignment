@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useAuthStore } from "@/feature/auth/auth-store";
@@ -51,7 +52,7 @@ function SignInPage() {
         alert("로그인에 성공하였습니다.");
       }
       router.push("/signin");
-    } catch (error) {
+    } catch (error: any) {
       const errorResult = customError(error.type, error);
       alert(errorResult?.message);
     }
@@ -61,7 +62,9 @@ function SignInPage() {
   return (
     <div className={styles.formContainer}>
       <div className={styles.logoContainer}>
-        <span className={styles.logoTitle}>BIGS PAYMENTS</span>
+        <Link href="/" className={styles.logoTitle}>
+          BIGS PAYMENTS
+        </Link>
       </div>
       <div className={styles.inputContainer}>
         <label>이메일</label>

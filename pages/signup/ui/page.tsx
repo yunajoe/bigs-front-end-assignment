@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { AUTH_ERROR_MESSAGE } from "@/shared/const/auth-validation";
@@ -82,7 +83,7 @@ function SignUpPage() {
         alert("회원가입에 성공하였습니다.");
         router.push("/");
       }
-    } catch (error) {
+    } catch (error: any) {
       const errorResult = customError(error.type, error);
       alert(errorResult?.message);
     }
@@ -94,7 +95,9 @@ function SignUpPage() {
   return (
     <div className={styles.formContainer}>
       <div className={styles.logoContainer}>
-        <span className={styles.logoTitle}>BIGS PAYMENTS</span>
+        <Link href="/" className={styles.logoTitle}>
+          BIGS PAYMENTS
+        </Link>
       </div>
       <div className={styles.inputContainer}>
         <label>이메일</label>
