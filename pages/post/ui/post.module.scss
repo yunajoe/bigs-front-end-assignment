@@ -1,0 +1,38 @@
+@use "@/shared/styles/mixin" as *;
+@use "@/shared/styles/variables" as *;
+
+.container {
+  min-height: 100vh;
+}
+
+.nav {
+  background-color: $red-300;
+  height: 70px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 375px;
+  @include desktop {
+    padding: 40px;
+  }
+}
+
+.logoTitle {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  text-decoration: none;
+  color: $black;
+}
+
+.authContainer {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  column-gap: 20px;
+
+  & a {
+    text-decoration: none;
+    color: $black;
+  }
+}

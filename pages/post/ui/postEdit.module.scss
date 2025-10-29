@@ -1,0 +1,121 @@
+@use "@/shared/styles/mixin" as *;
+@use "@/shared/styles/variables" as *;
+
+.container {
+  margin: 100px auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  max-width: 600px;
+}
+
+.title {
+  font-size: $font-size-xl;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+
+  & em {
+    color: $red-400;
+    font-weight: 700;
+  }
+
+  & select {
+    border: 1px solid $gray-300;
+    outline: none;
+    padding: 10px;
+    border-radius: 4px;
+  }
+
+  & input {
+    border: 1px solid $gray-300;
+    outline: none;
+    padding: 10px;
+    border-radius: 4px;
+  }
+
+  & input:focus {
+    border-color: $red-300;
+  }
+
+  & textarea {
+    border: 1px solid $gray-300;
+    resize: vertical;
+
+    outline: none;
+    padding: 10px;
+    border-radius: 4px;
+    min-height: 150px;
+  }
+
+  & textarea:focus {
+    border-color: $red-300;
+  }
+}
+
+.fileContent {
+  text-align: center;
+  border: 2px dashed $gray-400;
+  border-radius: 8px;
+  padding: 40px;
+  cursor: pointer;
+  position: relative;
+}
+.fileContent:hover {
+  border-color: $red-300;
+}
+
+.fileIcon {
+  font-size: $font-size-xl;
+}
+
+.fileInput {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+
+.fileInput:focus {
+  border: none;
+}
+
+.fileInput::file-selector-button {
+  display: none;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 20px;
+
+  & button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    color: $white;
+
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    padding: 8px;
+    border-radius: 4px;
+  }
+
+  & button.cancel {
+    min-width: 80px;
+    background-color: $white;
+    color: $black;
+    border: 1px solid $black;
+  }
+
+  & button.confirm {
+    min-width: 80px;
+    background-color: $black;
+    color: $white;
+    border: 1px solid $black;
+  }
+}

@@ -1,0 +1,67 @@
+@use "@/shared/styles/mixin" as *;
+@use "@/shared/styles/variables" as *;
+
+.itemContainer {
+  min-width: 300px;
+  max-width: 600px;
+  width: auto;
+  margin: 0 auto;
+}
+
+.item {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 12px 0;
+  background-color: #fafafa;
+  transition: box-shadow 0.2s ease;
+}
+
+.item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  margin-bottom: 20px;
+
+  & .category {
+    font-size: $font-size-xl;
+  }
+
+  & .date {
+    font-size: $font-size-sm;
+  }
+}
+
+.title {
+  font-weight: $font-weight-bold;
+  color: $black;
+  margin-bottom: 10px;
+}
+
+.loading {
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  font-size: $font-size-xl;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+  width: 100%;
+
+  & button {
+    width: 100%;
+    max-width: 200px;
+    cursor: pointer;
+    padding: 14px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+  }
+}

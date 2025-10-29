@@ -1,0 +1,182 @@
+@use "@/shared/styles/mixin" as *;
+@use "@/shared/styles/variables" as *;
+
+.nav {
+  background-color: $red-300;
+  height: 70px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 375px;
+  @include desktop {
+    padding: 40px;
+  }
+}
+
+.logoTitle {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+}
+
+.authContainer {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  column-gap: 20px;
+
+  & a {
+    text-decoration: none;
+    color: $black;
+  }
+}
+.guideText {
+  color: $black;
+  padding: 10px;
+  text-align: center;
+}
+.mainContainer {
+  width: 100%;
+  padding: 20px;
+  background-color: $gray-200;
+  display: flex;
+  justify-content: center;
+}
+
+.guideContainer {
+  width: 100%;
+  height: 100%;
+  max-width: 800px;
+  max-height: 600px;
+
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  row-gap: 20px;
+  padding: 20px;
+
+  & h2 {
+    font-size: $font-size-2xl;
+  }
+}
+
+.button {
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: $white;
+  background-color: $black;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  padding: 16px 8px;
+  border-radius: 16px;
+}
+
+.boardContainer {
+  width: 100%;
+  height: 100%;
+  background-color: $white;
+  padding: 10px;
+}
+.boardNavigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  margin-bottom: 20px;
+  & h3 {
+    font-size: $font-size-lg;
+  }
+
+  & button {
+    min-width: 80px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 10px;
+    color: $white;
+    font-size: $font-size-sm;
+    background-color: $black;
+    border-radius: 10px;
+  }
+}
+
+.boardCategories {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 20px;
+  margin-bottom: 20px;
+
+  @include desktop {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.categoryButtonContainer {
+  display: flex;
+  column-gap: 14px;
+
+  & button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: $white;
+    color: $black;
+    border: 1px solid $black;
+    padding: 4px;
+    border-radius: 4px;
+    min-width: 60px;
+    @include tablet {
+      min-width: 100px;
+    }
+    @include desktop {
+      min-width: 140px;
+    }
+  }
+  & button:hover {
+    background-color: #ffebee;
+  }
+}
+
+.categorySearchContainer {
+  display: flex;
+  column-gap: 20px;
+  width: 100%;
+  justify-content: center;
+
+  & input {
+    width: 160px;
+    padding: 4px;
+
+    @include tablet {
+      width: 180px;
+    }
+
+    @include desktop {
+      width: 200px;
+    }
+  }
+
+  & button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    min-width: 80px;
+    padding: 10px;
+  }
+
+  @include desktop {
+    justify-content: flex-end;
+  }
+}
+
+.boardLists {
+  background-color: green;
+}

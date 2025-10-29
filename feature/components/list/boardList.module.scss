@@ -1,0 +1,73 @@
+@use "@/shared/styles/mixin" as *;
+@use "@/shared/styles/variables" as *;
+.postTable {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.tableHeader {
+  display: flex;
+  padding: 10px;
+
+  & span {
+    flex: 1;
+  }
+}
+
+.post {
+  text-decoration: none;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid $gray-300;
+  color: 1px solid $black;
+
+  & li {
+    flex: 1;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  column-gap: 4px;
+
+  & button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 4px;
+  }
+}
+
+.paginationContainer {
+  align-self: center;
+
+  list-style: none;
+  display: flex;
+  column-gap: 10px;
+
+  & li {
+    cursor: pointer;
+    padding: 8px 10px;
+    border: 1px solid $gray-300;
+    border-radius: 4px;
+  }
+
+  & li.activePage {
+    background-color: $red-300;
+  }
+}
+
+.loading {
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  font-size: $font-size-xl;
+}
