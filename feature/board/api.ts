@@ -1,3 +1,3 @@
 const categoriesUrl = "boards/categories";
-
-export { categoriesUrl };
+const writePostUrl = "boards";
+export { categoriesUrl, writePostUrl };

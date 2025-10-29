@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useAuthStore } from "@/feature/auth/auth-store";
@@ -27,7 +26,7 @@ function SignInPage() {
   const [validPassword, setValidPassword] = useState(false);
 
   const router = useRouter();
-  // const { setTokens } = useAuthStore();
+  // const { setTokens, setUserName  } = useAuthStore();
 
   const handleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();

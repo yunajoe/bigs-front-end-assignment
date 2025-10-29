@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { AUTH_ERROR_MESSAGE } from "@/shared/const/auth-validation";
