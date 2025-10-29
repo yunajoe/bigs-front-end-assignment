@@ -43,7 +43,6 @@ function BoardListContent({
         <span>제목</span>
         <span>카테고리</span>
         <span>생성날짜</span>
-        {/* <span>관리</span> */}
       </div>
 
       {allPosts.data.content.map((post: Post) => {
@@ -54,10 +53,6 @@ function BoardListContent({
             <li>{title}</li>
             <li>{category}</li>
             <li>{formattingTime(createdAt)}</li>
-            {/* <div className={styles.buttonContainer}>
-              <button>삭제</button>
-              <button>수정</button>
-            </div> */}
           </Link>
         );
       })}

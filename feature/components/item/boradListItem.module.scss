@@ -1,7 +1,18 @@
 @use "@/shared/styles/mixin" as *;
 @use "@/shared/styles/variables" as *;
 
+.itemContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+  min-width: 300px;
+  max-width: 600px;
+}
+
 .item {
+  width: 100%;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
@@ -14,16 +25,22 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
+.header {
+  margin-bottom: 20px;
+
+  & .category {
+    font-size: $font-size-xl;
+  }
+
+  & .date {
+    font-size: $font-size-sm;
+  }
 }
 
-.meta {
-  font-size: 0.85rem;
-  color: #777;
+.title {
+  font-weight: $font-weight-bold;
+  color: $black;
+  margin-bottom: 10px;
 }
 
 .loading {
@@ -33,4 +50,21 @@
   display: flex;
   align-items: center;
   font-size: $font-size-xl;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+  width: 100%;
+
+  & button {
+    width: 100%;
+    max-width: 200px;
+    cursor: pointer;
+    padding: 14px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+  }
 }

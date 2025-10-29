@@ -67,3 +67,16 @@ export const writePost = async (data: WritePostParams) => {
     throw error;
   }
 };
+
+export const deletePost = async (id: number) => {
+  try {
+    const response = await authInstance.delete(`${boardUrl}/${id}`);
+    console.log("DELTE ===>>Response", response);
+    return {
+      data: response.data,
+      status: response.status,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
