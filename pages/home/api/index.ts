@@ -38,7 +38,6 @@ export const writePost = async (data: WritePostParams) => {
       status: response.status,
     };
   } catch (error) {
-    console.log("글쓰기 API 에러입니다 ====>>>", error);
     throw error;
   }
 };

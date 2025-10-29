@@ -1,12 +1,51 @@
 import { useBoardStore } from "@/feature/board/board-store";
 import { writePost } from "@/pages/home/api";
 import { WritePostParams } from "@/shared/types/board";
+import {
+  checkCategoryValidation,
+  checkContentValidation,
+  checkTitleValidation,
+} from "@/shared/utils/board-validation";
+import { ChangeEvent, useState } from "react";
 import styles from "./write.module.scss";
 
 function WritePost() {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [category, setCategory] = useState("");
+
+  const [validTitle, setValidTitle] = useState(false);
+  const [validContent, setValidContent] = useState(false);
+  const [validCategory, setValidCategory] = useState(false);
+
   const { closeWriteModal } = useBoardStore.getState();
 
+  const handleTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim();
+    const isValidTitle = checkTitleValidation(value);
+    setValidTitle(isValidTitle);
+    setTitle(value);
+  };
+
+  const handleContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value.trim();
+    const isValidContent = checkContentValidation(value);
+    setValidContent(isValidContent);
+    setContent(value);
+  };
+
+  const handleCategory = (e: ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value.trim();
+    const isValidCategory = checkCategoryValidation(value);
+    setValidCategory(isValidCategory);
+    setCategory(value);
+  };
+
   const handleWritePost = async (data: WritePostParams) => {
+    if (!validTitle || !validContent || !validCategory) {
+      alert("필수 항목은 모두 입력해야 합니다.");
+      return;
+    }
     try {
       const { status } = await writePost(data);
       if (status >= 200) {
@@ -24,25 +63,25 @@ function WritePost() {
         <label>
           카테고리<em>*</em>
         </label>
-        <select>
+        <select onChange={handleCategory}>
           <option value="">카테고리를 선택하세요</option>
           <option value="NOTICE">공지</option>
-          <option value="">일반</option>
-          <option value="">질문</option>
           <option value="FREE">자유</option>
+          <option value="QNA">Q&A</option>
+          <option value="ETC">기타</option>
         </select>
       </div>
       <div className={styles.inputContainer}>
         <label>
           제목 <em>*</em>
         </label>
-        <input />
+        <input value={title} onChange={handleTitle} />
       </div>
       <div className={styles.inputContainer}>
         <label>
           내용 <em>*</em>
         </label>
-        <textarea />
+        <textarea value={content} onChange={handleContent} />
       </div>
       <div className={styles.inputContainer}>
         <label>파일 첨부 (선택)</label>
@@ -61,9 +100,9 @@ function WritePost() {
           className={styles.confirm}
           onClick={() =>
             handleWritePost({
-              title: "자바",
-              content: "자바는 재미있습니다.",
-              category: "FREE",
+              title,
+              content,
+              category,
             })
           }
         >
