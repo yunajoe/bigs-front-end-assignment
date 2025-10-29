@@ -48,3 +48,14 @@ npm run dev
 
 - 회원가입 후 자동 로그인이 되게 안했으므로, 로그인을 별도로 해야 합니다.
 - 현재 검색어 기능은 구현을 하지 않은 상태입니다.
+- 현재 이미지 파일 처리까지는 하지 못한 상태입니다.
+
+# 스크린샷
+
+![alt text](image.png)
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+![alt text](image-3.png)
