@@ -32,10 +32,13 @@
 - username이 가입되어 있지 않은 경우
 - username에 맞지 않은 password인 경우
 
-# 사용 스택
+# 사용 스택 & 라이브러리
 
-- Next.js (App router)
+- Next.js (App router) 16 ver.
 - Zustand
+- Zod
+- axios
+- luxon
 
 # 실행방법
 
