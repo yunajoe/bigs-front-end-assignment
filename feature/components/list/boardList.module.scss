@@ -16,12 +16,15 @@
 }
 
 .post {
+  text-decoration: none;
+  cursor: pointer;
   list-style: none;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid $gray-300;
+  color: 1px solid $black;
 
   & li {
     flex: 1;

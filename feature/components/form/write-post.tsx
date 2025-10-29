@@ -1,5 +1,5 @@
 import { useBoardStore } from "@/feature/board/board-store";
-import { writePost } from "@/pages/home/api";
+import { writePost } from "@/pages/post/api";
 import { WritePostParams } from "@/shared/types/board";
 import {
   checkCategoryValidation,

@@ -17,3 +17,14 @@ const postSchema = z.object({
 });
 
 export type Post = z.infer<typeof postSchema>;
+
+const postItemSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  content: z.string(),
+  imageUrl: z.string().nullable(),
+  boardCategory: z.string(),
+  createdAt: z.string(),
+});
+
+export type PostItem = z.infer<typeof postItemSchema>;

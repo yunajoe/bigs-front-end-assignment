@@ -1,13 +1,22 @@
-import { getPosts } from "@/pages/home/api";
+import { getPosts } from "@/pages/post/api";
 import { Post } from "@/shared/types/board";
 import { formattingTime } from "@/shared/utils/time";
+import Link from "next/link";
 import { Suspense, use, useState } from "react";
 import styles from "./boardList.module.scss";
+
+interface BoardListResponse {
+  data: {
+    content: Post[];
+    totalPages: number;
+  };
+  status: number;
+}
 
 interface BoardListContentProps {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  data: Promise<any>;
+  data: Promise<BoardListResponse>;
 }
 
 function BoardListContent({
@@ -34,22 +43,22 @@ function BoardListContent({
         <span>제목</span>
         <span>카테고리</span>
         <span>생성날짜</span>
-        <span>관리</span>
+        {/* <span>관리</span> */}
       </div>
 
       {allPosts.data.content.map((post: Post) => {
         const { id, title, category, createdAt } = post;
         return (
-          <div key={id} className={styles.post}>
+          <Link key={id} className={styles.post} href={`/post/${id}`}>
             <li>{id}</li>
             <li>{title}</li>
             <li>{category}</li>
             <li>{formattingTime(createdAt)}</li>
-            <div className={styles.buttonContainer}>
+            {/* <div className={styles.buttonContainer}>
               <button>삭제</button>
               <button>수정</button>
-            </div>
-          </div>
+            </div> */}
+          </Link>
         );
       })}
       <ul className={styles.paginationContainer}>

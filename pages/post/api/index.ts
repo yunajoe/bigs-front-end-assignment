@@ -25,6 +25,18 @@ export const getPosts = async (page = 0, size = 10) => {
   }
 };
 
+export const getPost = async (id: number) => {
+  try {
+    const response = await authInstance.get(`${boardUrl}/${id}`);
+    return {
+      data: response.data,
+      status: response.status,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const writePost = async (data: WritePostParams) => {
   try {
     const formData = new FormData();

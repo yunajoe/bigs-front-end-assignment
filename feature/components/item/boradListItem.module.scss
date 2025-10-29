@@ -1,0 +1,36 @@
+@use "@/shared/styles/mixin" as *;
+@use "@/shared/styles/variables" as *;
+
+.item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 12px 0;
+  background-color: #fafafa;
+  transition: box-shadow 0.2s ease;
+}
+
+.item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.loading {
+  margin: auto;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  font-size: $font-size-xl;
+}
