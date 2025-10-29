@@ -1,7 +1,6 @@
 import { useBoardStore } from "@/feature/board/board-store";
 import { writePost } from "@/pages/home/api";
 import { WritePostParams } from "@/shared/types/board";
-import { customError } from "@/shared/utils/axios-validation";
 import styles from "./write.module.scss";
 
 function WritePost() {
@@ -9,10 +8,13 @@ function WritePost() {
 
   const handleWritePost = async (data: WritePostParams) => {
     try {
-      await writePost(data);
+      const { status } = await writePost(data);
+      if (status >= 200) {
+        alert("글등록이 완료 되었습니다.");
+        closeWriteModal();
+      }
     } catch (error: any) {
-      const errorResult = customError(error.type, error);
-      alert(errorResult?.message);
+      alert(error?.message);
     }
   };
   return (
@@ -24,10 +26,10 @@ function WritePost() {
         </label>
         <select>
           <option value="">카테고리를 선택하세요</option>
-          <option value="">공지</option>
+          <option value="NOTICE">공지</option>
           <option value="">일반</option>
           <option value="">질문</option>
-          <option value="">자유</option>
+          <option value="FREE">자유</option>
         </select>
       </div>
       <div className={styles.inputContainer}>
@@ -59,9 +61,9 @@ function WritePost() {
           className={styles.confirm}
           onClick={() =>
             handleWritePost({
-              title: "test",
-              content: "test",
-              category: "하이",
+              title: "자바",
+              content: "자바는 재미있습니다.",
+              category: "FREE",
             })
           }
         >

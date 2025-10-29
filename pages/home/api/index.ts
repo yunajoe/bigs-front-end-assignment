@@ -14,27 +14,31 @@ export const getBoardCategories = async () => {
 export const writePost = async (data: WritePostParams) => {
   try {
     const formData = new FormData();
-    formData.append(
-      "request",
-      JSON.stringify({
-        title: data.title,
-        content: data.content,
-        category: data.category,
-      })
+
+    const blob = new Blob(
+      [
+        JSON.stringify({
+          title: data.title,
+          content: data.content,
+          category: data.category,
+        }),
+      ],
+      { type: "application/json" }
     );
+
+    formData.append("request", blob);
+
     if (data.file) {
       formData.append("file", data.file);
     }
-    for (const [key, value] of formData.entries()) {
-      console.log("우아우 ====>>>", key, value);
-    }
-    const response = await authInstance.post(writePostUrl, formData, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    return response;
+
+    const response = await authInstance.post(writePostUrl, formData);
+    return {
+      data: response.data,
+      status: response.status,
+    };
   } catch (error) {
+    console.log("글쓰기 API 에러입니다 ====>>>", error);
     throw error;
   }
 };

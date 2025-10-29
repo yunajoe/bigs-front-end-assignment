@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const authInstance = axios.create({
   baseURL: "https://front-mission.bigs.or.kr/",
-  timeout: 1000,
+  timeout: 3000,
 });
 
 const newIssueAccessToken = async (refreshToken: string) => {
@@ -41,10 +41,19 @@ authInstance.interceptors.response.use(
     return response;
   },
   async function (error) {
-    console.log("인증 API를 사용하는 함수 에러입니다 ==>>>>>.", error);
+    console.log(
+      "인증 API를 사용하는 함수 에러입니다(글쓰기 API, 글삭제 API) ==>>>>>.",
+      error
+    );
     const originalConfig = error.config;
+
     const { refreshToken, setTokens, clearTokens } = useAuthStore.getState();
-    if (error.response?.status >= 400 && refreshToken) {
+    if (
+      error.response?.status >= 400 &&
+      refreshToken &&
+      !originalConfig._retry
+    ) {
+      originalConfig._retry = true;
       try {
         const response = await newIssueAccessToken(refreshToken);
         console.log("response ===>", response);
@@ -62,7 +71,6 @@ authInstance.interceptors.response.use(
       }
     }
 
-    window.location.href = "/signin";
     return Promise.reject(error);
   }
 );
