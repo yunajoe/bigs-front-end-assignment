@@ -5,36 +5,21 @@ export type CustomError = {
 };
 
 export const customError = (type: string, error: CustomError) => {
-  switch (type) {
-    case "RESPONSE_ERROR": {
-      if (error?.data?.username) {
-        return {
-          status: error.status,
-          message: error.data.username,
-        };
-      }
+  if (type === "RESPONSE_ERROR") {
+    if (error?.data?.username) {
       return {
         status: error.status,
-        message: error?.data?.message || error.message,
+        message: error.data.username,
       };
     }
-    case "NO_RESPONSE": {
-      return {
-        status: error.status,
-        message: error.message,
-      };
-    }
-    case "UNKNOWN_ERROR": {
-      return {
-        status: error.status,
-        message: error.message,
-      };
-    }
-    default: {
-      return {
-        status: error.status,
-        message: error.message,
-      };
-    }
+    return {
+      status: error.status,
+      message: error?.data?.message || error.message,
+    };
   }
+
+  return {
+    status: error.status,
+    message: error.message,
+  };
 };
