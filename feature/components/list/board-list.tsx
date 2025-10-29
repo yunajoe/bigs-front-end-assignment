@@ -1,5 +1,6 @@
 import { getPosts } from "@/pages/home/api";
 import { Post } from "@/shared/types/board";
+import { formattingTime } from "@/shared/utils/time";
 import { Suspense, use } from "react";
 import styles from "./boardList.module.scss";
 
@@ -18,7 +19,7 @@ function BoardListContent({ data }: BoardListContentProps) {
   return (
     <div className={styles.postTable}>
       <div className={styles.tableHeader}>
-        <span>아이디</span>
+        <span className={styles.head}>아이디</span>
         <span>제목</span>
         <span>카테고리</span>
         <span>생성날짜</span>
@@ -28,10 +29,10 @@ function BoardListContent({ data }: BoardListContentProps) {
         const { id, title, category, createdAt } = post;
         return (
           <div key={id} className={styles.post}>
-            <li>{id}</li>
-            <li>{title}</li>
-            <li>{category}</li>
-            <li>{createdAt}</li>
+            <li className={styles.id}>{id}</li>
+            <li className={styles.title}>{title}</li>
+            <li className={styles.category}>{category}</li>
+            <li>{formattingTime(createdAt)}</li>
           </div>
         );
       })}
