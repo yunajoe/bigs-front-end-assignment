@@ -86,7 +86,13 @@ function HomePage() {
               </div>
               <div className={styles.categorySearchContainer}>
                 <input />
-                <button>검색</button>
+                <button
+                  onClick={() => {
+                    alert("기능 개발 전입니다.");
+                  }}
+                >
+                  검색
+                </button>
               </div>
             </div>
             {/* posts 리스트 */}
