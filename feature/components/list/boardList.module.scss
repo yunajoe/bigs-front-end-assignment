@@ -1,0 +1,24 @@
+@use "@/shared/styles/mixin" as *;
+@use "@/shared/styles/variables" as *;
+.postTable {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableHeader {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 20px;
+  padding: 10px;
+}
+
+.post {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 20px;
+  padding: 10px;
+  border-bottom: 1px solid $gray-300;
+}

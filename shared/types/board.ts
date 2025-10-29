@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const writePostParamsSchema = z.object({
+const writePostParamsSchema = z.object({
   title: z.string(),
   content: z.string(),
   category: z.string(),
@@ -8,3 +8,12 @@ export const writePostParamsSchema = z.object({
 });
 
 export type WritePostParams = z.infer<typeof writePostParamsSchema>;
+
+const postSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  category: z.string(),
+  createdAt: z.string(),
+});
+
+export type Post = z.infer<typeof postSchema>;

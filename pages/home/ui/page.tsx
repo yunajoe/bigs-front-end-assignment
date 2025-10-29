@@ -2,10 +2,12 @@
 import { useAuthStore } from "@/feature/auth/auth-store";
 import { useBoardStore } from "@/feature/board/board-store";
 import WritePost from "@/feature/components/form/write-post";
+import BoardList from "@/feature/components/list/board-list";
 import Modal from "@/feature/components/modal";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./home.module.scss";
+
 function HomePage() {
   const accessToken = useAuthStore((state) => state.accessToken);
   const username = useAuthStore((state) => state.username);
@@ -51,6 +53,7 @@ function HomePage() {
           : `안녕하세요 ${username}님 반갑습니다.`}
       </p>
 
+      {/* 게시판 컨텐츠 */}
       {!accessToken ? (
         <div className={styles.mainContainer}>
           <div className={styles.guideContainer}>
@@ -75,6 +78,7 @@ function HomePage() {
             </nav>
             <div className={styles.boardCategories}>
               <div className={styles.categoryButtonContainer}>
+                <button>전체</button>
                 <button>공지</button>
                 <button>자유</button>
                 <button>Q&A</button>
@@ -85,6 +89,8 @@ function HomePage() {
                 <button>검색</button>
               </div>
             </div>
+            {/* posts 리스트 */}
+            <BoardList />
           </div>
         </div>
       )}

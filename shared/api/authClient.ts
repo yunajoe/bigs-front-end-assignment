@@ -41,10 +41,6 @@ authInstance.interceptors.response.use(
     return response;
   },
   async function (error) {
-    console.log(
-      "인증 API를 사용하는 함수 에러입니다(글쓰기 API, 글삭제 API) ==>>>>>.",
-      error
-    );
     const originalConfig = error.config;
 
     const { refreshToken, setTokens, clearTokens } = useAuthStore.getState();
@@ -56,7 +52,6 @@ authInstance.interceptors.response.use(
       originalConfig._retry = true;
       try {
         const response = await newIssueAccessToken(refreshToken);
-        console.log("response ===>", response);
         // 새로운 토큰이 잘 발행이 되었다면은
         if (response.status === 200) {
           setTokens(response.data.accessToken, response.data.refreshToken);
@@ -64,7 +59,6 @@ authInstance.interceptors.response.use(
           return authInstance(originalConfig);
         }
       } catch (error: any) {
-        console.log("error =====>>>> ", error);
         alert("로그인 유효시간이 끝났습니다. 다시 로그인해주세요");
         clearTokens();
         window.location.href = "/signin";
