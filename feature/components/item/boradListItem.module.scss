@@ -2,13 +2,10 @@
 @use "@/shared/styles/variables" as *;
 
 .itemContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  row-gap: 20px;
   min-width: 300px;
   max-width: 600px;
+  width: auto;
+  margin: 0 auto;
 }
 
 .item {

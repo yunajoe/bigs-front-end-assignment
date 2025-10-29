@@ -1,69 +1,88 @@
+"use client";
 import { useBoardStore } from "@/feature/board/board-store";
-import { writePost } from "@/pages/post/api";
-import { WritePostParams } from "@/shared/types/board";
 import {
   checkCategoryValidation,
   checkContentValidation,
   checkTitleValidation,
 } from "@/shared/utils/board-validation";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
-import styles from "./write.module.scss";
+import { updatePost } from "../api";
+import styles from "./postEdit.module.scss";
+function PostEditPage() {
+  const data = useBoardStore((state) => state.editingPost);
 
-function WritePost() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [category, setCategory] = useState("");
+  const [title, setTitle] = useState(data?.title ?? "");
+  const [content, setContent] = useState(data?.content ?? "");
+  const [category, setCategory] = useState(data?.boardCategory ?? "");
+
+  //TODO: 추후에 null 타입으로 변경하기
+  const [file, setFile] = useState<File | undefined>(undefined);
 
   const [validTitle, setValidTitle] = useState(false);
   const [validContent, setValidContent] = useState(false);
   const [validCategory, setValidCategory] = useState(false);
 
-  const { closeWriteModal } = useBoardStore.getState();
+  const clearEditingPost = useBoardStore.getState;
+  const router = useRouter();
 
   const handleTitle = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const isValidTitle = checkTitleValidation(value);
-    setValidTitle(isValidTitle);
     setTitle(value);
+    setValidTitle(checkTitleValidation(value));
   };
 
   const handleContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-    const isValidContent = checkContentValidation(value);
-    setValidContent(isValidContent);
     setContent(value);
+    setValidContent(checkContentValidation(value));
   };
 
   const handleCategory = (e: ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    const isValidCategory = checkCategoryValidation(value);
-    setValidCategory(isValidCategory);
+    const value = e.target.value.trim();
     setCategory(value);
+    setValidCategory(checkCategoryValidation(value));
   };
 
-  const handleWritePost = async (data: WritePostParams) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleEditPage = async () => {
+    if (!data) return;
     if (!validTitle || !validContent || !validCategory) {
       alert("필수 항목은 모두 입력해야 합니다.");
       return;
     }
+
+    const updatedData = {
+      title,
+      content,
+      category,
+      file,
+    };
     try {
-      const { status } = await writePost(data);
+      const { status } = await updatePost(data.id, updatedData);
       if (status >= 200) {
-        alert("글등록이 완료 되었습니다.");
-        closeWriteModal();
+        alert("글수정이 완료 되었습니다.");
+        router.push(`/post/${data.id}`);
       }
     } catch (error: any) {
       alert(error?.message);
     }
   };
+
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>새 글 작성</h2>
+      <h2 className={styles.title}>글 수정</h2>
+
       <div className={styles.inputContainer}>
         <label>
           카테고리<em>*</em>
         </label>
-        <select onChange={handleCategory}>
+        <select value={category} onChange={handleCategory}>
           <option value="">카테고리를 선택하세요</option>
           <option value="NOTICE">공지</option>
           <option value="FREE">자유</option>
@@ -71,46 +90,51 @@ function WritePost() {
           <option value="ETC">기타</option>
         </select>
       </div>
+
       <div className={styles.inputContainer}>
         <label>
           제목 <em>*</em>
         </label>
         <input value={title} onChange={handleTitle} />
       </div>
+
       <div className={styles.inputContainer}>
         <label>
           내용 <em>*</em>
         </label>
         <textarea value={content} onChange={handleContent} />
       </div>
+
       <div className={styles.inputContainer}>
         <label>파일 첨부 (선택)</label>
         <div className={styles.fileContent}>
           <div className={styles.fileIcon}>📎</div>
           <div>클릭하거나 파일을 드래그하세요</div>
           <p>최대 10MB</p>
-          <input type="file" className={styles.fileInput} />
+          <input
+            type="file"
+            className={styles.fileInput}
+            onChange={handleFileChange}
+          />
         </div>
       </div>
+
       <div className={styles.buttonContainer}>
-        <button className={styles.cancel} onClick={closeWriteModal}>
+        <button
+          className={styles.cancel}
+          onClick={() => {
+            clearEditingPost();
+            router.back();
+          }}
+        >
           취소
         </button>
-        <button
-          className={styles.confirm}
-          onClick={() =>
-            handleWritePost({
-              title,
-              content,
-              category,
-            })
-          }
-        >
-          작성 완료
+        <button className={styles.confirm} onClick={handleEditPage}>
+          수정 완료
         </button>
       </div>
     </div>
   );
 }
 
-export default WritePost;
+export default PostEditPage;

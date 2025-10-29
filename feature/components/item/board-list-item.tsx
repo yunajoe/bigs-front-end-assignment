@@ -1,3 +1,4 @@
+import { useBoardStore } from "@/feature/board/board-store";
 import { deletePost, getPost } from "@/pages/post/api";
 import { PostItem } from "@/shared/types/board";
 import { formattingTime } from "@/shared/utils/time";
@@ -22,6 +23,7 @@ interface BoardListItemContentProps {
 function BoardListItemContent({ data }: BoardListItemContentProps) {
   const router = useRouter();
   const post = use(data);
+  const { setEditingPost } = useBoardStore();
   if (post.status !== 200) {
     return <p>포스트를 불러 올 수 없습니다.</p>;
   }
@@ -38,7 +40,17 @@ function BoardListItemContent({ data }: BoardListItemContentProps) {
     }
   };
 
-  const handleEdit = () => {};
+  const handleEdit = (id: number) => {
+    setEditingPost({
+      id,
+      title,
+      content,
+      imageUrl,
+      boardCategory,
+      createdAt,
+    });
+    router.push(`/post/edit/${id}`);
+  };
 
   return (
     <div className={styles.itemContainer}>
@@ -59,7 +71,7 @@ function BoardListItemContent({ data }: BoardListItemContentProps) {
       </div>
       <div className={styles.buttonContainer}>
         <button onClick={() => handleDelete(id)}>삭제</button>
-        <button>수정</button>
+        <button onClick={() => handleEdit(id)}>수정</button>
       </div>
     </div>
   );

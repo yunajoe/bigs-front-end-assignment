@@ -71,7 +71,38 @@ export const writePost = async (data: WritePostParams) => {
 export const deletePost = async (id: number) => {
   try {
     const response = await authInstance.delete(`${boardUrl}/${id}`);
-    console.log("DELTE ===>>Response", response);
+    return {
+      data: response.data,
+      status: response.status,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updatePost = async (id: number, data: WritePostParams) => {
+  try {
+    const formData = new FormData();
+
+    const blob = new Blob(
+      [
+        JSON.stringify({
+          title: data.title,
+          content: data.content,
+          category: data.category,
+        }),
+      ],
+      { type: "application/json" }
+    );
+
+    formData.append("request", blob);
+
+    if (data.file) {
+      formData.append("file", data.file);
+    }
+
+    const response = await authInstance.patch(`${boardUrl}/${id}`, formData);
+
     return {
       data: response.data,
       status: response.status,
