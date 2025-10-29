@@ -1,4 +1,3 @@
-import { refreshUrl } from "@/feature/auth/api";
 import { useAuthStore } from "@/feature/auth/auth-store";
 import axios from "axios";
 
@@ -9,9 +8,14 @@ export const authInstance = axios.create({
 
 const newIssueAccessToken = async (refreshToken: string) => {
   try {
-    const response = await axios.post(refreshUrl, refreshToken);
+    // TODO: baseURL 상수화시키기
+    const response = await axios.post(
+      "https://front-mission.bigs.or.kr/auth/refresh",
+      { refreshToken }
+    );
     return response;
   } catch (error) {
+    console.log("refreshError입니당 ==>", error);
     throw error;
   }
 };
@@ -19,10 +23,6 @@ const newIssueAccessToken = async (refreshToken: string) => {
 // 요청 인터셉터 추가하기
 authInstance.interceptors.request.use(
   function (config) {
-    // 요청이 전달되기 전에 작업 수행
-    // headers의 AUthroziaion dㅔ Bearer TOken에 accessToken이 있는지 확인하기
-    // accessToken이 있으면은  headers에 acccessToken를 넎는다.
-    // accessToken이 없으면은??? 로그인 페이졸 보내자
     const { accessToken } = useAuthStore.getState();
     if (!accessToken) {
       window.location.href = "/signin";
@@ -40,24 +40,29 @@ authInstance.interceptors.response.use(
   function (response) {
     return response;
   },
-
   async function (error) {
-    // 2xx 외의 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
+    console.log("인증 API를 사용하는 함수 에러입니다 ==>>>>>.", error);
     const originalConfig = error.config;
     const { refreshToken, setTokens, clearTokens } = useAuthStore.getState();
     if (error.response?.status >= 400 && refreshToken) {
-      const response = await newIssueAccessToken(refreshToken);
-      // 새로운 토큰이 잘 발행이 되었다면은
-      if (response.status === 200) {
-        setTokens(response.data.accessToken, response.data.refreshToken);
-        originalConfig.headers.Authorization = `Bearer ${response.data.accessToken}`;
-        return authInstance(originalConfig);
-      } else {
+      try {
+        const response = await newIssueAccessToken(refreshToken);
+        console.log("response ===>", response);
+        // 새로운 토큰이 잘 발행이 되었다면은
+        if (response.status === 200) {
+          setTokens(response.data.accessToken, response.data.refreshToken);
+          originalConfig.headers.Authorization = `Bearer ${response.data.accessToken}`;
+          return authInstance(originalConfig);
+        }
+      } catch (error: any) {
+        console.log("error =====>>>> ", error);
+        alert("로그인 유효시간이 끝났습니다. 다시 로그인해주세요");
         clearTokens();
-        window.location.href = "/login";
+        window.location.href = "/signin";
       }
     }
 
+    window.location.href = "/signin";
     return Promise.reject(error);
   }
 );

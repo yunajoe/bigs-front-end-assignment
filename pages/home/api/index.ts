@@ -25,9 +25,12 @@ export const writePost = async (data: WritePostParams) => {
     if (data.file) {
       formData.append("file", data.file);
     }
+    for (const [key, value] of formData.entries()) {
+      console.log("우아우 ====>>>", key, value);
+    }
     const response = await authInstance.post(writePostUrl, formData, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
       },
     });
     return response;

@@ -1,9 +1,12 @@
+import { useBoardStore } from "@/feature/board/board-store";
 import { writePost } from "@/pages/home/api";
 import { WritePostParams } from "@/shared/types/board";
 import { customError } from "@/shared/utils/axios-validation";
 import styles from "./write.module.scss";
 
 function WritePost() {
+  const { closeWriteModal } = useBoardStore.getState();
+
   const handleWritePost = async (data: WritePostParams) => {
     try {
       await writePost(data);
@@ -47,6 +50,23 @@ function WritePost() {
           <p>최대 10MB</p>
           <input type="file" className={styles.fileInput} />
         </div>
+      </div>
+      <div className={styles.buttonContainer}>
+        <button className={styles.cancel} onClick={closeWriteModal}>
+          취소
+        </button>
+        <button
+          className={styles.confirm}
+          onClick={() =>
+            handleWritePost({
+              title: "test",
+              content: "test",
+              category: "하이",
+            })
+          }
+        >
+          작성 완료
+        </button>
       </div>
     </div>
   );

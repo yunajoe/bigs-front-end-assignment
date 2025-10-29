@@ -30,7 +30,7 @@ export const customError = (type: string, error: CustomError) => {
         message: error.message,
       };
     }
-    case "UNKNOWN_ERROR": {
+    default: {
       return {
         status: error.status,
         message: error.message,
